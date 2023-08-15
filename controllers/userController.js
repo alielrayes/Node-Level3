@@ -37,13 +37,11 @@ const user_post = (req, res) => {
     });
 };
 
-
 // done
 //   /edit/:id
 const user_delete = (req, res) => {
-
   AuthUser.updateOne(
-    { "customerInfo._id" : req.params.id },
+    { "customerInfo._id": req.params.id },
     { $pull: { customerInfo: { _id: req.params.id } } }
   )
     .then((result) => {
@@ -55,13 +53,20 @@ const user_delete = (req, res) => {
     });
 };
 
-
 //  view/:id
 const user_view_get = (req, res) => {
   // result ==> object
-  User.findById(req.params.id)
+  AuthUser.findOne({ "customerInfo._id": req.params.id })
     .then((result) => {
-      res.render("user/view", { obj: result, moment: moment });
+      const clickedObject = result.customerInfo.find((item) => {
+        return item._id == req.params.id;
+      });
+      console.log(
+        "============================================================"
+      );
+      console.log(clickedObject);
+
+      res.render("user/view", { obj: clickedObject, moment: moment });
     })
     .catch((err) => {
       console.log(err);
@@ -70,11 +75,7 @@ const user_view_get = (req, res) => {
 
 
 
-
-
-
-
-
+// edit/:id
 const user_edit_get = (req, res) => {
   User.findById(req.params.id)
     .then((result) => {
@@ -84,6 +85,16 @@ const user_edit_get = (req, res) => {
       console.log(err);
     });
 };
+
+
+
+
+
+
+
+
+
+
 
 
 
