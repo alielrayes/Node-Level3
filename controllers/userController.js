@@ -1,16 +1,27 @@
 const AuthUser = require("../models/authUser");
 var moment = require("moment");
-var jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
+
+
+// 1- get nested objects inside an array 
+// 2- add nested object inside an array 
+// 3- delete nested object inside an array
+
+// 4- update nested object inside an array 
+
+
+
+
+
+
 
 //   /home
 //    done
 const user_index_get = (req, res) => {
   var decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
 
-  AuthUser.findById(decoded.id)
+  AuthUser.findOne({ _id: decoded.id })
     .then((result) => {
-      console.log("***********************************************")
-      console.log(result)
       res.render("index", { arr: result.customerInfo, moment: moment });
     })
     .catch((err) => {
@@ -18,9 +29,13 @@ const user_index_get = (req, res) => {
     });
 };
 
-
+// done
 const user_post = (req, res) => {
-  User.create(req.body)
+  var decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
+  console.log("========================================");
+  console.log(req.body);
+
+  AuthUser.updateOne({ _id: decoded.id }, { $push: { customerInfo: req.body } })
     .then(() => {
       res.redirect("/home");
     })
@@ -28,6 +43,19 @@ const user_post = (req, res) => {
       console.log(err);
     });
 };
+
+
+const user_delete = (req, res) => {
+  User.deleteOne({ _id: req.params.id })
+    .then((result) => {
+      res.redirect("/home");
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 
 
 
@@ -72,16 +100,7 @@ const user_search_post = (req, res) => {
     });
 };
 
-const user_delete = (req, res) => {
-  User.deleteOne({ _id: req.params.id })
-    .then((result) => {
-      res.redirect("/home");
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+
 
 const user_put = (req, res) => {
   User.updateOne({ _id: req.params.id }, req.body)
@@ -96,8 +115,6 @@ const user_put = (req, res) => {
 const user_add_get = (req, res) => {
   res.render("user/add");
 };
-
-
 
 module.exports = {
   user_index_get,
