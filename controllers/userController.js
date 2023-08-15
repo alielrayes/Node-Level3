@@ -1,17 +1,40 @@
-const User = require("../models/customerSchema");
+const AuthUser = require("../models/authUser");
 var moment = require("moment");
-
+var jwt = require('jsonwebtoken');
 
 //   /home
+//    done
 const user_index_get = (req, res) => {
-  User.find()
+  var decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
+
+  AuthUser.findById(decoded.id)
     .then((result) => {
-      res.render("index", { arr: result, moment: moment });
+      console.log("***********************************************")
+      console.log(result)
+      res.render("index", { arr: result.customerInfo, moment: moment });
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
+
+const user_post = (req, res) => {
+  User.create(req.body)
+    .then(() => {
+      res.redirect("/home");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+
+
+
+
+
 
 const user_edit_get = (req, res) => {
   User.findById(req.params.id)
@@ -74,15 +97,7 @@ const user_add_get = (req, res) => {
   res.render("user/add");
 };
 
-const user_post = (req, res) => {
-  User.create(req.body)
-    .then(() => {
-      res.redirect("/home");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+
 
 module.exports = {
   user_index_get,
