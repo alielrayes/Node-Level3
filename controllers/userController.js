@@ -78,8 +78,8 @@ const user_edit_get = (req, res) => {
       const clickedObject = result.customerInfo.find((item) => {
         return item._id == req.params.id;
       });
-      console.log("==================================================");
-      console.log(clickedObject);
+    
+     
 
       res.render("user/edit", { obj: clickedObject, moment: moment });
     })
@@ -89,10 +89,16 @@ const user_edit_get = (req, res) => {
 };
 
 
-
-
+// done
+// /edit/:id
 const user_put = (req, res) => {
-  User.updateOne({ _id: req.params.id }, req.body)
+  console.log("==================================================");
+  console.log(req.body )
+
+  AuthUser.updateOne(
+    { "customerInfo._id": req.params.id },
+    { "customerInfo.$": req.body }
+  )
     .then((result) => {
       res.redirect("/home");
     })
@@ -101,16 +107,10 @@ const user_put = (req, res) => {
     });
 };
 
-
-
-
-
-
-
-
-
-
-
+// done
+const user_add_get = (req, res) => {
+  res.render("user/add");
+};
 
 
 const user_search_post = (req, res) => {
@@ -129,10 +129,6 @@ const user_search_post = (req, res) => {
 };
 
 
-
-const user_add_get = (req, res) => {
-  res.render("user/add");
-};
 
 module.exports = {
   user_index_get,
