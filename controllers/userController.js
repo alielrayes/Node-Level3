@@ -53,6 +53,7 @@ const user_delete = (req, res) => {
     });
 };
 
+// done
 //  view/:id
 const user_view_get = (req, res) => {
   // result ==> object
@@ -61,10 +62,6 @@ const user_view_get = (req, res) => {
       const clickedObject = result.customerInfo.find((item) => {
         return item._id == req.params.id;
       });
-      console.log(
-        "============================================================"
-      );
-      console.log(clickedObject);
 
       res.render("user/view", { obj: clickedObject, moment: moment });
     })
@@ -73,13 +70,31 @@ const user_view_get = (req, res) => {
     });
 };
 
-
-
+// done
 // edit/:id
 const user_edit_get = (req, res) => {
-  User.findById(req.params.id)
+  AuthUser.findOne({ "customerInfo._id": req.params.id })
     .then((result) => {
-      res.render("user/edit", { obj: result, moment: moment });
+      const clickedObject = result.customerInfo.find((item) => {
+        return item._id == req.params.id;
+      });
+      console.log("==================================================");
+      console.log(clickedObject);
+
+      res.render("user/edit", { obj: clickedObject, moment: moment });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+
+
+const user_put = (req, res) => {
+  User.updateOne({ _id: req.params.id }, req.body)
+    .then((result) => {
+      res.redirect("/home");
     })
     .catch((err) => {
       console.log(err);
@@ -113,15 +128,7 @@ const user_search_post = (req, res) => {
     });
 };
 
-const user_put = (req, res) => {
-  User.updateOne({ _id: req.params.id }, req.body)
-    .then((result) => {
-      res.redirect("/home");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+
 
 const user_add_get = (req, res) => {
   res.render("user/add");
