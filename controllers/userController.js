@@ -2,18 +2,11 @@ const AuthUser = require("../models/authUser");
 var moment = require("moment");
 var jwt = require("jsonwebtoken");
 
-
-// 1- get nested objects inside an array 
-// 2- add nested object inside an array 
+// 1- get nested objects inside an array
+// 2- add nested object inside an array
 // 3- delete nested object inside an array
 
-// 4- update nested object inside an array 
-
-
-
-
-
-
+// 4- update nested object inside an array
 
 //   /home
 //    done
@@ -45,8 +38,14 @@ const user_post = (req, res) => {
 };
 
 
+// done
+//   /edit/:id
 const user_delete = (req, res) => {
-  User.deleteOne({ _id: req.params.id })
+
+  AuthUser.updateOne(
+    { "customerInfo._id" : req.params.id },
+    { $pull: { customerInfo: { _id: req.params.id } } }
+  )
     .then((result) => {
       res.redirect("/home");
       console.log(result);
@@ -56,6 +55,18 @@ const user_delete = (req, res) => {
     });
 };
 
+
+//  view/:id
+const user_view_get = (req, res) => {
+  // result ==> object
+  User.findById(req.params.id)
+    .then((result) => {
+      res.render("user/view", { obj: result, moment: moment });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 
 
@@ -74,16 +85,7 @@ const user_edit_get = (req, res) => {
     });
 };
 
-const user_view_get = (req, res) => {
-  // result ==> object
-  User.findById(req.params.id)
-    .then((result) => {
-      res.render("user/view", { obj: result, moment: moment });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+
 
 const user_search_post = (req, res) => {
   console.log("*******************************");
@@ -99,8 +101,6 @@ const user_search_post = (req, res) => {
       console.log(err);
     });
 };
-
-
 
 const user_put = (req, res) => {
   User.updateOne({ _id: req.params.id }, req.body)
