@@ -78,8 +78,6 @@ const user_edit_get = (req, res) => {
       const clickedObject = result.customerInfo.find((item) => {
         return item._id == req.params.id;
       });
-    
-     
 
       res.render("user/edit", { obj: clickedObject, moment: moment });
     })
@@ -88,13 +86,9 @@ const user_edit_get = (req, res) => {
     });
 };
 
-
 // done
 // /edit/:id
 const user_put = (req, res) => {
-  console.log("==================================================");
-  console.log(req.body )
-
   AuthUser.updateOne(
     { "customerInfo._id": req.params.id },
     { "customerInfo.$": req.body }
@@ -112,23 +106,29 @@ const user_add_get = (req, res) => {
   res.render("user/add");
 };
 
-
 const user_search_post = (req, res) => {
   console.log("*******************************");
 
   const searchText = req.body.searchText.trim();
+  var decoded = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY);
 
-  User.find({ $or: [{ fireName: searchText }, { lastName: searchText }] })
+  AuthUser.findOne({ _id: decoded.id })
     .then((result) => {
-      console.log(result);
-      res.render("user/search", { arr: result, moment: moment });
+      console.log(result.customerInfo)
+      const searchCustomers = result.customerInfo.filter((item) => {
+        return (
+          item.fireName.includes(searchText) ||
+          item.lastName.includes(searchText)
+        );
+      });
+      console.log(searchCustomers);
+
+      res.render("user/search", { arr: searchCustomers, moment: moment });
     })
     .catch((err) => {
       console.log(err);
     });
 };
-
-
 
 module.exports = {
   user_index_get,

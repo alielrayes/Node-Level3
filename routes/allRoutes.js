@@ -8,6 +8,7 @@ const { check, validationResult } = require("express-validator");
 const authController = require("../controllers/authController");
 
 router.get("*", checkIfUser);
+router.post("*", checkIfUser);
 
 // Level 2
 
