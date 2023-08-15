@@ -1,0 +1,33 @@
+<header class="mb-auto">
+  <!-- align-items-center -->
+  <div class="d-flex justify-content-between  align-items-center">
+
+
+    <h3 class="float-md-start mb-0">
+      <a class="btn fs-2 text-white fw-bold" href="/">c4a.dev</a>
+    </h3>
+  
+
+
+    <% if (user) { %>
+
+<div class="d-flex align-items-center">
+       <p class="m-0 me-2">Welcome : <%= user.email %></p>
+       <a class="fw-bold btn btn-light" href="/signout">Sign out</a>
+</div>
+
+    <% } else { %>
+  
+  
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+ 
+      <a class="fw-bold btn <%= currentPage == "login" ? "btn-light" : null %>     " href="/login">Log in</a>
+      <a class="fw-bold btn <%= currentPage == "signup" ? "btn-light" : null %>" href="/signup">Sign up</a>
+    </nav>
+
+    <%   } %>
+
+
+
+  </div>
+</header>

@@ -1,0 +1,67 @@
+  model.create() ==> to send data to DB
+  
+  model.find() ==> to get all data from DB
+  model.findById("64c084e1ba1c09af7a125c58)
+  moodel.fondOne({email:  dddddddd})
+
+
+
+  model.findByIdDelete("64c084e1ba1c09af7a125c58") ==> Delete Request
+  model.deleteOne({_id: req.params.id})  ==> Delete Request
+
+
+
+
+
+
+
+
+
+
+
+{
+  username: RAMY
+  email: sssss,
+  password: ffff,
+  customerInfo: [ 
+    {
+    firstName: dddddd,
+    lastName: dddd,
+    email: ssss
+  },
+
+    {
+    firstName: dddddd,
+    lastName: dddd,
+    email: ssss
+  },
+
+    {
+    firstName: dddddd,
+    lastName: dddd,
+    email: ssss
+  }
+  
+  
+   ]
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

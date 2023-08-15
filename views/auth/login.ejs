@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="./js/color-modes.js"></script>
+    <link
+      rel="stylesheet"
+      href="./bootstrap-icons-1.10.5/font/bootstrap-icons.min.css"
+    />
+    <link rel="shortcut icon" href="./img/ali.png" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.112.5" />
+    <title>Home page</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/dark-light.css" />
+
+    <!-- Custom styles for this template -->
+    <link href="./css/sidebars.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/myStyle.css" />
+    <style>
+      /* Custom default button */
+      .btn-light,
+      .btn-light:hover,
+      .btn-light:focus {
+        color: #333;
+        text-shadow: none; /* Prevent inheritance from `body` */
+      }
+
+      /*
+ * Base structure
+ */
+
+      body {
+        text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+        box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+      }
+
+      .cover-container {
+        max-width: 42em;
+      }
+    </style>
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <%- include('./header.ejs', {currentPage : "login"}) %>
+
+      <main class="px-3">
+        <h1>Log in</h1>
+
+        <form
+  
+        id="signupForm"
+          class="text-start mx-auto mt-5"
+          style="max-width: 22em"
+        >
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Email address</label
+            >
+            <input
+              name="email"
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <p id="emailError"></p>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Password</label
+            >
+            <input
+              name="password"
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+            <p id="passwordError"></p>
+          </div>
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >Check me out</label
+            >
+          </div>
+          <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+      </main>
+
+      <footer class="mt-auto text-white-50">
+        <p>Designed and developed by Ali Hassan © 2023</p>
+      </footer>
+    </div>
+    <script>
+      signupForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+        const res = await fetch("/login", {
+          method: "POST",
+          body: JSON.stringify({
+         
+            email: exampleInputEmail1.value,
+            password: exampleInputPassword1.value,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await res.json();
+       
+
+        if (data.notFoundEmail) {
+          emailError.textContent = data.notFoundEmail;
+        }
+
+
+        if (data.id) {
+          location.assign("/home")
+        }
+
+
+        if (data.passwordError) {
+          console.log(data)
+          passwordError.textContent = data.passwordError;
+        }
+
+       
+      });
+    </script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
