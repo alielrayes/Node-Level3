@@ -10,12 +10,12 @@ app.use(methodOverride("_method"));
 const allRoutes = require("./routes/allRoutes");
 const addUserRoute = require("./routes/addUser");
 
-app.use(express.json())
+app.use(express.json());
 // cookie-parser
-var cookieParser = require('cookie-parser')
-app.use(cookieParser())
+var cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
-require('dotenv').config()
+require("dotenv").config();
 
 // Auto refresh
 const path = require("path");
@@ -33,9 +33,7 @@ liveReloadServer.server.once("connection", () => {
 });
 
 mongoose
-  .connect(
-    process.env.MONGODB_URL
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     app.listen(port, () => {
       console.log(`http://localhost:${port}/`);
@@ -46,4 +44,4 @@ mongoose
   });
 
 app.use(allRoutes);
-app.use( "/user/add.html",addUserRoute);
+app.use("/user/add.html", addUserRoute);
