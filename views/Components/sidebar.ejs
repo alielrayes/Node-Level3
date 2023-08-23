@@ -32,7 +32,7 @@
   <hr />
   <div class="dropdown">
     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="../img/avatar.png" alt="" width="32" height="32" class="rounded-circle me-2" />
+      <img src="<%= user.profileImage? user.profileImage : "../img/avatar.png" %>" alt="" width="32" height="32" class="rounded-circle me-2" />
       <strong class="sidebar-text">
         <%= user.username %>
       </strong>
@@ -53,11 +53,9 @@
 </div>
 
 <!-- Modal -->
-<div   class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form
-    action="/update-profile" method="post" enctype="multipart/form-data"
-    class="modal-content">
+    <form action="/update-profile" method="post" enctype="multipart/form-data" class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Change Profile Image</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -65,12 +63,12 @@
 
 
       <div class="px-4 modal-body d-flex justify-content-between align-items-center">
-        <label class="btn btn-secondary" for="inputFile"> 
+        <label class="btn btn-secondary" for="inputFile">
           <i class="bi bi-plus"></i>
           Upload Img </label>
         <input name="avatar" style="display: none;" id="inputFile" type="file">
 
-        <img id="profileImage" style="border-radius: 50%;" src="../img/avatar.png" alt="" width="150" height="150">
+        <img id="profileImage" style="border-radius: 50%;" src="<%= user.profileImage? user.profileImage : "../img/avatar.png" %>" alt="" width="150" height="150">
       </div>
 
 
