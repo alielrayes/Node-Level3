@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cloudinary": "^1.40.0",
     "connect-livereload": "^0.6.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
@@ -23,6 +24,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.4",
     "mongoose": "^7.4.0",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1"
   }
 }

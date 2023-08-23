@@ -55,7 +55,9 @@
 <!-- Modal -->
 <div   class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <form
+    action="/update-profile" method="post" enctype="multipart/form-data"
+    class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Change Profile Image</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -66,7 +68,7 @@
         <label class="btn btn-secondary" for="inputFile"> 
           <i class="bi bi-plus"></i>
           Upload Img </label>
-        <input style="display: none;" id="inputFile" type="file">
+        <input name="avatar" style="display: none;" id="inputFile" type="file">
 
         <img id="profileImage" style="border-radius: 50%;" src="../img/avatar.png" alt="" width="150" height="150">
       </div>
@@ -74,9 +76,9 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 

@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 
 // define the Schema (the structure of the article)
 const authUserSchema = new Schema({
+  profileImage: String,
   username: String,
   email: String,
   password: String,
